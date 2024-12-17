@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS products;
+
+USE products;
+
+CREATE TABLE IF NOT EXISTS products
+(product_id INT AUTO_INCREMENT PRIMARY KEY,
+ product_name VARCHAR(50) NOT NULL,
+ price DECIMAL(10,2) NOT NULL,
+ CHECK (price>= 0)
+);
+
+
+CREATE TABLE IF NOT EXISTS customers
+( 
+ customer_id INT AUTO_INCREMENT PRIMARY KEY,
+ customer_name VARCHAR(100) NOT NULL,
+ customer_tel VARCHAR(15) NOT NULL
+);
+
+
+
+CREATE TABLE IF NOT EXISTS orders
+(
+ order_id INT AUTO_INCREMENT PRIMARY KEY,
+ quantity INT NOT NULL,
+ total_amount DECIMAL(10, 2) NOT NULL,
+ order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+ customerId INT,
+ FOREIGN KEY(customerId) REFERENCES customers(customer_id) ON DELETE CASCADE,
+ productId INT,
+ FOREIGN KEY(productId) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+SHOW TABLES;
+DESCRIBE orders;
